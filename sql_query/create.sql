@@ -1,5 +1,5 @@
 CREATE TYPE issue_statuses AS ENUM
-('new','in_progress','done','rejected');
+('NEW','IN_PROGRESS','DONE','REJECTED');
 
 CREATE TABLE "pets" (
 	"id" bigserial NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE "owners" (
 	"first_name" varchar(100) NOT NULL,
 	"last_name" varchar(100) NOT NULL,
 	"middle_name" varchar(100),
-        "address" TEXT NOT NULL,
+  "address" TEXT NOT NULL,
 	"id_user" bigint NOT NULL UNIQUE,
 	CONSTRAINT owners_pk PRIMARY KEY ("id")
 ) WITH (
@@ -43,7 +43,7 @@ CREATE TABLE "emloyees" (
 	"first_name" varchar(100) NOT NULL,
 	"last_name" varchar(100) NOT NULL,
 	"middle_name" varchar(100),
-        "experience" smallint NOT NULL,
+  "experience" smallint NOT NULL,
 	"id_user" bigint NOT NULL UNIQUE,
 	CONSTRAINT emloyees_pk PRIMARY KEY ("id")
 ) WITH (
