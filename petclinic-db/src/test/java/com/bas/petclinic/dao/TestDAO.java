@@ -1,6 +1,7 @@
 package com.bas.petclinic.dao;
 
 import com.bas.petclinic.config.DBConfig;
+import com.bas.petclinic.config.JpaConfig;
 import com.bas.petclinic.model.UserRole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by dmitry on 3/11/17.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = DBConfig.class)
+@ContextConfiguration(classes = JpaConfig.class)
 public class TestDAO {
 
     @Autowired
@@ -26,6 +27,6 @@ public class TestDAO {
     @Transactional
     public void testCreateUser() {
         UserRole userRole = userRoleDAO.getUserRoleById(1);
-        userDAO.createUser("login1", "pwd1", userRole);
+        userDAO.createUser("login2", "pwd2", userRole);
     }
 }
