@@ -5,9 +5,11 @@ import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,11 +22,12 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
-    public User createUser(String login, String password, UserRole role) throws DataAccessException {
+    public User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException {
         User user = new User();
         user.setUsername(login);
         user.setPasswordAndSalt(password);
         user.setRole(role);
+        user.setCreatedAt(createdAt);
         entityManager.persist(user);
         return user;
     }

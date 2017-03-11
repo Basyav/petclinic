@@ -4,6 +4,7 @@ import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import org.springframework.dao.DataAccessException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface UserDAO {
 
-    User createUser(String login, String password, UserRole role) throws DataAccessException;
+    User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException;
     
     List<User> getUsers();
 

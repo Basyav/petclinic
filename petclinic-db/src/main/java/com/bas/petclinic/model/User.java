@@ -15,7 +15,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "login", length = 20)
+    @Column(name = "login", length = 20, unique = true)
     private String username;
 
     @Column(name = "password")
@@ -90,5 +90,15 @@ public class User {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", passwordAndSalt='" + passwordAndSalt + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

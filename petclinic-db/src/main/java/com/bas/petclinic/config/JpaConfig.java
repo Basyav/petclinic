@@ -26,57 +26,57 @@ import java.util.Properties;
 @PropertySource("classpath:properties/connection.properties")
 public class JpaConfig {
 
-  @Resource
-  private Environment env;
+    @Resource
+    private Environment env;
 
-  @Bean
-  public DataSource dataSource() {
-    DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setDriverClassName(env.getProperty("db.driver"));
-    dataSource.setUrl(env.getProperty("db.url"));
-    dataSource.setUsername(env.getProperty("db.username"));
-    dataSource.setPassword(env.getProperty("db.password"));
-    return dataSource;
-  }
+    @Bean
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("db.driver"));
+        dataSource.setUrl(env.getProperty("db.url"));
+        dataSource.setUsername(env.getProperty("db.username"));
+        dataSource.setPassword(env.getProperty("db.password"));
+        return dataSource;
+    }
 
-  private Properties hibernateProp() {
-    Properties properties = new Properties();
-    properties.put("hibernate.format_sql", true);
-    return properties;
-  }
+    private Properties hibernateProp() {
+        Properties properties = new Properties();
+        properties.put("hibernate.format_sql", true);
+        return properties;
+    }
 
-  @Bean
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
-    LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-    entityManagerFactory.setDataSource(dataSource);
-    entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-    entityManagerFactory.setJpaProperties(hibernateProp());
-    entityManagerFactory.setPackagesToScan("com.bas.petclinic.model");
-    return entityManagerFactory;
-  }
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
+            JpaVendorAdapter jpaVendorAdapter) {
+        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactory.setDataSource(dataSource);
+        entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
+        entityManagerFactory.setJpaProperties(hibernateProp());
+        entityManagerFactory.setPackagesToScan("com.bas.petclinic.model");
+        return entityManagerFactory;
+    }
 
-  @Bean
-  public JpaVendorAdapter jpaVendorAdapter() {
-    HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-    adapter.setDatabase(env.getProperty("jpa.database", Database.class));
-    adapter.setShowSql(true);
-    adapter.setGenerateDdl(false);
-    adapter.setDatabasePlatform(env.getProperty("jpa.dialect"));
-    return adapter;
-  }
-  
+    @Bean
+    public JpaVendorAdapter jpaVendorAdapter() {
+        HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        adapter.setDatabase(env.getProperty("jpa.database", Database.class));
+        adapter.setShowSql(true);
+        adapter.setDatabasePlatform(env.getProperty("jpa.dialect"));
+        return adapter;
+    }
 
-  @Configuration
-  @EnableTransactionManagement
-  public static class TransactionConfig implements TransactionManagementConfigurer {
 
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
+    @Configuration
+    @EnableTransactionManagement
+    public static class TransactionConfig implements TransactionManagementConfigurer {
 
-    public PlatformTransactionManager annotationDrivenTransactionManager() {
-      JpaTransactionManager transactionManager = new JpaTransactionManager();
-      transactionManager.setEntityManagerFactory(entityManagerFactory);
-      return transactionManager;
-    }    
-  }
+      @Inject
+      private EntityManagerFactory entityManagerFactory;
+
+      public PlatformTransactionManager annotationDrivenTransactionManager() {
+          JpaTransactionManager transactionManager = new JpaTransactionManager();
+          transactionManager.setEntityManagerFactory(entityManagerFactory);
+          return transactionManager;
+      }
+    }
 }
