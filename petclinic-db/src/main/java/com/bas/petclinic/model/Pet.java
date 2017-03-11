@@ -2,6 +2,8 @@ package com.bas.petclinic.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Bean for pet
@@ -24,9 +26,12 @@ public class Pet {
     @Column(name = "reg_date")
     private LocalDate createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_owner")
     private Owner owner;
+
+    @OneToMany(mappedBy = "pet", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private List<Issue> issues = new ArrayList<>();
 
     public Pet() {
     }
@@ -75,5 +80,27 @@ public class Pet {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return id.equals(pet.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

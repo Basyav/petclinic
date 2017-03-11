@@ -1,8 +1,8 @@
 package com.bas.petclinic.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Bean for owner
@@ -14,8 +14,8 @@ public class Owner extends Person {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Pet> pets = new ArrayList<>();
+    @OneToMany(mappedBy = "owner", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private Set<Pet> pets = new HashSet<>();
 
     public Owner() {
     }
@@ -31,5 +31,13 @@ public class Owner extends Person {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Set<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
     }
 }

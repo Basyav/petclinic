@@ -84,9 +84,9 @@ ALTER TABLE "pets" ADD CONSTRAINT "pets_fk0" FOREIGN KEY ("id_owner") REFERENCES
 ALTER TABLE "owners" ADD CONSTRAINT "owners_fk0" FOREIGN KEY ("id_user") REFERENCES "users"("id");
 
 
-ALTER TABLE "emloyees" ADD CONSTRAINT "emloyees_fk0" FOREIGN KEY ("id_user") REFERENCES "users"("id");
+ALTER TABLE "employees" ADD CONSTRAINT "employees_fk0" FOREIGN KEY ("id_user") REFERENCES "users"("id");
 
-ALTER TABLE "issues" ADD CONSTRAINT "issues_fk0" FOREIGN KEY ("id_emloyee") REFERENCES "emloyees"("id");
+ALTER TABLE "issues" ADD CONSTRAINT "issues_fk0" FOREIGN KEY ("id_employee") REFERENCES "employees"("id");
 ALTER TABLE "issues" ADD CONSTRAINT "issues_fk1" FOREIGN KEY ("id_pet") REFERENCES "pets"("id");
 
 ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("id_role") REFERENCES "user_roles"("id");

@@ -15,11 +15,11 @@ public class Issue {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_emloyee")
-    private Emloyee emloyee;
+    private Employee employee;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pet")
     private Pet pet;
 
@@ -44,12 +44,12 @@ public class Issue {
         this.id = id;
     }
 
-    public Emloyee getEmloyee() {
-        return emloyee;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmloyee(Emloyee emloyee) {
-        this.emloyee = emloyee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Pet getPet() {

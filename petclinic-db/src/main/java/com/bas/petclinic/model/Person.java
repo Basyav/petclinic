@@ -3,7 +3,7 @@ package com.bas.petclinic.model;
 import javax.persistence.*;
 
 /**
- *  Parent class for Emloyee and Owner
+ *  Parent class for Employee and Owner
  */
 @MappedSuperclass
 public class Person {
@@ -24,7 +24,7 @@ public class Person {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
-    private User user;
+    private User username;
 
     public Person() {
     }
@@ -67,12 +67,12 @@ public class Person {
         this.middleName = middleName;
     }
 
-    public User getUser() {
-        return user;
+    public User getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(User username) {
+        this.username = username;
     }
 
     @Override
