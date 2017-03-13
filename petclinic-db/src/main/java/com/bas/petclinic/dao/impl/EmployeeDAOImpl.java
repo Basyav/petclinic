@@ -5,6 +5,7 @@ import com.bas.petclinic.model.Employee;
 import com.bas.petclinic.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Employee createEmployee(String firstName, String lastName, String middleName,
                                    User username, Byte experience) throws DataAccessException {
         Employee employee = new Employee();
@@ -42,12 +44,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     }
 
     @Override
+    @Transactional
     public Employee updateEmployee(Employee employee) throws DataAccessException {
         entityManager.merge(employee);
         return employee;
     }
 
     @Override
+    @Transactional
     public void deleteEmployeeById(Long id) throws DataAccessException {
         Employee employee = getEmployeeById(id);
         entityManager.remove(employee);

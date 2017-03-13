@@ -7,6 +7,7 @@ import com.bas.petclinic.model.IssueStatus;
 import com.bas.petclinic.model.Pet;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,6 +21,7 @@ public class IssueDAOImpl implements IssueDAO {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Issue createIssue(Employee employee, Pet pet, String description) throws DataAccessException{
         Issue issue = new Issue();
         issue.setEmployee(employee);
@@ -36,6 +38,7 @@ public class IssueDAOImpl implements IssueDAO {
     }
 
     @Override
+    @Transactional
     public Issue updateIssue(Issue issue) throws DataAccessException {
         entityManager.merge(issue);
         return issue;

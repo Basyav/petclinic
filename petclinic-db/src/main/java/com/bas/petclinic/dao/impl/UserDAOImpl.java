@@ -22,6 +22,7 @@ public class UserDAOImpl implements UserDAO {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException {
         User user = new User();
         user.setUsername(login);
@@ -38,12 +39,14 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    @Transactional
     public User updateUser(User user) throws DataAccessException{
         entityManager.merge(user);
         return user;
     }
 
     @Override
+    @Transactional
     public void deleteUserById(Long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);

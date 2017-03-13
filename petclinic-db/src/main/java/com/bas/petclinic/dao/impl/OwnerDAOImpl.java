@@ -5,6 +5,7 @@ import com.bas.petclinic.model.Owner;
 import com.bas.petclinic.model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +20,7 @@ public class OwnerDAOImpl implements OwnerDAO {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Owner createOwner(String firstName, String lastName, String middleName,
                              User username, String address) throws DataAccessException {
         Owner owner = new Owner();
@@ -42,12 +44,14 @@ public class OwnerDAOImpl implements OwnerDAO {
     }
 
     @Override
+    @Transactional
     public Owner updateOwner(Owner owner) throws DataAccessException {
         entityManager.merge(owner);
         return owner;
     }
 
     @Override
+    @Transactional
     public void deleteOwnerById(Long id) throws DataAccessException {
         Owner owner = getOwnerById(id);
         entityManager.remove(owner);
