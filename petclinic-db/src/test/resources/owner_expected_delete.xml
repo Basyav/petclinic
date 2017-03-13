@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users login="owner2" password="pwd1" id_role="1" created_date="2017-03-12" />
+    <users login="newowner" password="pwd1" id_role="1" created_date="2017-03-12" />
+
+    <owners first_name="Любовь" last_name="Львова" address="ул. Стрелковой девизии" />
+
+    <pets name="Мурзик" description="Кот" reg_date="2017-03-12" id_owner="1001" />
+</dataset>

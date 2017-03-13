@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users login="owner1" password="pwd1" id_role="1" created_date="2017-03-12" />
+    <users login="owner2" password="pwd1" id_role="1" created_date="2017-03-12" />
+    <users login="newowner" password="pwd1" id_role="1" created_date="2017-03-12" />
+
+    <owners first_name="Снежана" last_name="Самохвалова" middle_name="Владимировна" address="ул. Стрелковой девизии"  />
+    <owners first_name="Любовь" last_name="Кошкина" middle_name="Владимировна" address="ул. Стрелковой девизии"  />
+    <owners first_name="Любовь" last_name="Львова" address="ул. Стрелковой девизии" />
+</dataset>

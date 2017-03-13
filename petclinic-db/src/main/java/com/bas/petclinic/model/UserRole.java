@@ -16,6 +16,14 @@ public class UserRole {
     @Column(name = "name", length = 20)
     private String name;
 
+    public UserRole() {
+    }
+
+    public UserRole(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }

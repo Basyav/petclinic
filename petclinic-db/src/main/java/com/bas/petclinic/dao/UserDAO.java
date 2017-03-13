@@ -14,6 +14,8 @@ public interface UserDAO {
 
     User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException;
     
+    User getUserById(Long id);
+
     List<User> getUsers();
 
     User updateUser(User user) throws DataAccessException;

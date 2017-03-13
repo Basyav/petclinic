@@ -16,7 +16,7 @@ public class Issue {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_emloyee")
+    @JoinColumn(name = "id_employee")
     private Employee employee;
 
     @ManyToOne(fetch = FetchType.LAZY)

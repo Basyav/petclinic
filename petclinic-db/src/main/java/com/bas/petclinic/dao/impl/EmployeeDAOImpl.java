@@ -22,7 +22,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     @Transactional
     public Employee createEmployee(String firstName, String lastName, String middleName,
-                                   User username, Byte experience) throws DataAccessException {
+                                   User username, Integer experience) throws DataAccessException {
         Employee employee = new Employee();
         employee.setFirstName(firstName);
         employee.setLastName(lastName);

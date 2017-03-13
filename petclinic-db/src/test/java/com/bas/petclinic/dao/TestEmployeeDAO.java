@@ -1,14 +1,13 @@
 package com.bas.petclinic.dao;
 
 import com.bas.petclinic.config.JpaConfig;
+import com.bas.petclinic.model.Employee;
 import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,11 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.time.LocalDate;
-import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Tests for UserDAO
+ *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JpaConfig.class)
@@ -31,36 +31,42 @@ import java.util.List;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup(value = "classpath:user.xml")
-public class TestUserDAO {
+@DatabaseSetup("classpath:employee.xml")
+public class TestEmployeeDAO {
+
+    @Autowired
+    private EmployeeDAO employeeDAO;
 
     @Autowired
     private UserDAO userDAO;
 
     @Test
-    @ExpectedDatabase(value = "classpath:user_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void testCreateUser() throws Exception{
-        userDAO.createUser("client2", "pwd1", new UserRole(1,"CLIENT"), LocalDate.now());
+    public void testGetEmployee() throws Exception {
+        Employee employee = employeeDAO.getEmployeeById(1000L);
+        assertEquals(new Long(1000),employee.getId());
+        System.out.println(employee);
     }
 
     @Test
-    @ExpectedDatabase(value = "classpath:user.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void testGetAllUser() throws Exception {
-        List<User> users = userDAO.getUsers();
-        users.forEach(System.out::println);
+    @ExpectedDatabase(value = "classpath:employee_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void testCreateEmployee() throws Exception {
+        User user = userDAO.createUser("employee3", "pwd1", new UserRole(2, "EMPLOYEE"), LocalDate.now());
+        Employee employee = employeeDAO.createEmployee("Иван", "Собакевич", "Владимирович", user,  1);
+        assertEquals(user, employee.getUsername());
     }
 
     @Test
-    @ExpectedDatabase(value = "classpath:user_expected_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void testUpdateUser() throws Exception {
-        User user = userDAO.getUserById(1000L);
-        user.setUsername("client2");
-        userDAO.updateUser(user);
+    @ExpectedDatabase(value = "classpath:employee_expected_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void testUpdateEmployee() throws Exception {
+        Employee employee = employeeDAO.getEmployeeById(1000L);
+        employee.setFirstName("Мария");
+        employeeDAO.updateEmployee(employee);
     }
 
     @Test
-    @ExpectedDatabase(value = "classpath:user_expected_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void testDeleteUser() throws Exception {
-        userDAO.deleteUserById(1000L);
+    @ExpectedDatabase(value = "classpath:employee_expected_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void testDeleteEmployee() throws Exception {
+        employeeDAO.deleteEmployeeById(1001L);
     }
+
 }

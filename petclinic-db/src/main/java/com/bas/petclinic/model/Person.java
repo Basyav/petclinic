@@ -22,7 +22,7 @@ public class Person {
     @Column(name = "middle_name", length = 100)
     private String middleName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_user")
     private User username;
 
@@ -87,5 +87,16 @@ public class Person {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", username=" + username +
+                '}';
     }
 }

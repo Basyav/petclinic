@@ -1,6 +1,7 @@
 package com.bas.petclinic.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,5 +40,15 @@ public class Owner extends Person {
 
     public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    @Override
+    public String toString() {
+        return "Owner{" + this.getId() +
+                ", firstName='" + this.getFirstName() + '\'' +
+                ", lastName='" + this.getLastName() + '\'' +
+                ", middleName='" + this.getMiddleName() + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

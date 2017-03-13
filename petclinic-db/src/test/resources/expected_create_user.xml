@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset>
-    <users login="client1" password="pwd1" id_role="1" created_date="2017-03-12"/>
-    <users login="emloyee1" password="pwd1" id_role="2" created_date="2017-03-12"/>
-    <users login="admin1" password="pwd1" id_role="3" created_date="2017-03-12"/>
-    <users login="client2" password="pwd1" id_role="1" created_date="2017-03-12"/>
-</dataset>

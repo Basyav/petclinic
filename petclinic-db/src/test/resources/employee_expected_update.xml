@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <users id="1000" login="employee1" password="pwd1" id_role="2" created_date="2017-03-12"/>
+    <users id="1001" login="employee2" password="pwd1" id_role="2" created_date="2017-03-12"/>
+
+    <employees first_name="Мария" last_name="Кошкина" middle_name="Владимировна" id_user="1000" experience="1" />
+    <employees first_name="Любовь" last_name="Львова" id_user="1001" experience="1" />
+</dataset>

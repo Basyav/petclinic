@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 public interface EmployeeDAO {
 
     Employee createEmployee(String firstName, String lastName, String middleName,
-                            User username, Byte experience) throws DataAccessException;
+                            User username, Integer experience) throws DataAccessException;
 
     Employee getEmployeeById(Long id);
 
