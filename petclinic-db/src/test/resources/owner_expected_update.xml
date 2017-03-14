@@ -6,8 +6,4 @@
 
     <owners first_name="Любовь" last_name="Кошкина" middle_name="Владимировна" address="ул. Пушкина" />
     <owners first_name="Любовь" last_name="Львова" address="ул. Стрелковой девизии" />
-
-    <pets name="Лео" description="Попугай" reg_date="2017-03-13" id_owner="1000" />
-    <pets name="Шарик" description="Собака" reg_date="2017-03-12" id_owner="1000" />
-    <pets name="Мурзик" description="Кот" reg_date="2017-03-12" id_owner="1001" />
 </dataset>

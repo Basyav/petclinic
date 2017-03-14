@@ -4,7 +4,9 @@ import com.bas.petclinic.config.JpaConfig;
 import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.After;
@@ -29,9 +31,9 @@ import java.util.List;
 @ContextConfiguration(classes = JpaConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DatabaseSetup(value = "classpath:user.xml")
+@DatabaseTearDown(value = "classpath:user.xml", type = DatabaseOperation.DELETE_ALL)
 public class TestUserDAO {
 
     @Autowired
@@ -40,7 +42,7 @@ public class TestUserDAO {
     @Test
     @ExpectedDatabase(value = "classpath:user_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testCreateUser() throws Exception{
-        userDAO.createUser("client2", "pwd1", new UserRole(1,"CLIENT"), LocalDate.now());
+        userDAO.createUser("client2", "pwd1", new UserRole(1,"CLIENT"), LocalDate.of(2017,3,13));
     }
 
     @Test

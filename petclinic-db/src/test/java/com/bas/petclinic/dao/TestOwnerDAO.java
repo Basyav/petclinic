@@ -5,7 +5,10 @@ import com.bas.petclinic.model.Owner;
 import com.bas.petclinic.model.Pet;
 import com.bas.petclinic.model.User;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
@@ -16,10 +19,6 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 /**
@@ -27,11 +26,11 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = JpaConfig.class)
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
 @DatabaseSetup("classpath:owner.xml")
+@DatabaseTearDown(value = "classpath:owner.xml", type = DatabaseOperation.DELETE_ALL)
 public class TestOwnerDAO {
 
     @Autowired
@@ -55,17 +54,11 @@ public class TestOwnerDAO {
     }
 
     @Test
-//    @Transactional
     @ExpectedDatabase(value = "classpath:owner_expected_update.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testUpdateOwner() throws Exception {
         Owner owner = ownerDAO.getOwnerById(1000L);
         owner.setAddress("ул. Пушкина");
-        Pet pet = new Pet("Лео", "Попугай", LocalDate.now());
-        pet.setOwner(owner);
-//        System.out.println(owner.getPets());
-        owner.getPets().add(pet);
         ownerDAO.updateOwner(owner);
-        System.out.println(owner.getPets());
     }
 
     @Test

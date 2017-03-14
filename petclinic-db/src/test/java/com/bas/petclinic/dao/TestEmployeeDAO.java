@@ -5,7 +5,9 @@ import com.bas.petclinic.model.Employee;
 import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
+import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import org.junit.Test;
@@ -31,7 +33,8 @@ import static org.junit.Assert.assertEquals;
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-@DatabaseSetup("classpath:employee.xml")
+@DatabaseSetup(value = "classpath:employee.xml")
+@DatabaseTearDown(value = "classpath:employee.xml", type = DatabaseOperation.DELETE_ALL)
 public class TestEmployeeDAO {
 
     @Autowired
@@ -50,7 +53,7 @@ public class TestEmployeeDAO {
     @Test
     @ExpectedDatabase(value = "classpath:employee_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testCreateEmployee() throws Exception {
-        User user = userDAO.createUser("employee3", "pwd1", new UserRole(2, "EMPLOYEE"), LocalDate.now());
+        User user = userDAO.createUser("employee3", "pwd1", new UserRole(2, "EMPLOYEE"), LocalDate.of(2017,3,13));
         Employee employee = employeeDAO.createEmployee("Иван", "Собакевич", "Владимирович", user,  1);
         assertEquals(user, employee.getUsername());
     }
