@@ -7,11 +7,11 @@ import com.bas.petclinic.model.Pet;
 import org.springframework.dao.DataAccessException;
 
 /**
- * Created by dmitry on 3/10/17.
+ *
  */
 public interface IssueDAO {
 
-    Issue createIssue(Employee employee, Pet pet, String description) throws DataAccessException;
+    Issue createIssue(Issue issue) throws DataAccessException;
 
     Issue getIssueById(Long id);
 

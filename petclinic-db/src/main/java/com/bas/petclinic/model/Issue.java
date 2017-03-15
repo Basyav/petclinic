@@ -1,7 +1,7 @@
 package com.bas.petclinic.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Bean for issue
@@ -26,14 +26,20 @@ public class Issue {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "created_date")
-    private LocalDate createdAt;
+    @Column(name = "changed_time")
+    private LocalDateTime changedAt;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private IssueStatus status;
 
     public Issue() {
+    }
+
+    public Issue(String description, LocalDateTime changedAt, IssueStatus status) {
+        this.description = description;
+        this.changedAt = changedAt;
+        this.status = status;
     }
 
     public Long getId() {
@@ -68,12 +74,12 @@ public class Issue {
         this.description = description;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getChangedAt() {
+        return changedAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public void setChangedAt(LocalDateTime changedAt) {
+        this.changedAt = changedAt;
     }
 
     public IssueStatus getStatus() {
@@ -96,5 +102,15 @@ public class Issue {
     @Override
     public int hashCode() {
         return id.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", changedAt=" + changedAt +
+                ", status=" + status +
+                '}';
     }
 }

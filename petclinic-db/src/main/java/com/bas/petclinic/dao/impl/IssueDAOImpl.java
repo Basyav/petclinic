@@ -1,10 +1,7 @@
 package com.bas.petclinic.dao.impl;
 
 import com.bas.petclinic.dao.IssueDAO;
-import com.bas.petclinic.model.Employee;
 import com.bas.petclinic.model.Issue;
-import com.bas.petclinic.model.IssueStatus;
-import com.bas.petclinic.model.Pet;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +19,7 @@ public class IssueDAOImpl implements IssueDAO {
 
     @Override
     @Transactional
-    public Issue createIssue(Employee employee, Pet pet, String description) throws DataAccessException{
-        Issue issue = new Issue();
-        issue.setEmployee(employee);
-        issue.setPet(pet);
-        issue.setDescription(description);
-        issue.setStatus(IssueStatus.NEW);
+    public Issue createIssue(Issue issue) throws DataAccessException{
         entityManager.persist(issue);
         return issue;
     }

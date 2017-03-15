@@ -38,14 +38,14 @@ CREATE TABLE "user_roles" (
 
 
 
-CREATE TABLE "emloyees" (
+CREATE TABLE "employees" (
 	"id" bigserial NOT NULL,
 	"first_name" varchar(100) NOT NULL,
 	"last_name" varchar(100) NOT NULL,
 	"middle_name" varchar(100),
   "experience" smallint NOT NULL,
 	"id_user" bigint NOT NULL UNIQUE,
-	CONSTRAINT emloyees_pk PRIMARY KEY ("id")
+	CONSTRAINT employees_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -54,11 +54,11 @@ CREATE TABLE "emloyees" (
 
 CREATE TABLE "issues" (
 	"id" bigserial NOT NULL,
-	"id_emloyee" bigint NOT NULL,
+	"id_employee" bigint NOT NULL,
 	"id_pet" bigint NOT NULL,
 	"description" TEXT NOT NULL,
-	"created_date" DATE NOT NULL,
-	"status" issue_statuses NOT NULL,
+	"changed_time" timestamp without time zone NOT NULL,
+	"status" smallint NOT NULL,
 	CONSTRAINT issues_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
