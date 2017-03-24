@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users id="1000" login="client1" password="pwd1" id_role="1" created_date="2017-03-12"/>
-    <users id="1001" login="employee1" password="pwd1" id_role="2" created_date="2017-03-12"/>
-    <users id="1003" login="admin1" password="pwd1" id_role="3" created_date="2017-03-12"/>
+    <users id="1000" login="client1" password="pwd1" created_date="2017-03-12"/>
+    <users id="1001" login="employee1" password="pwd1" created_date="2017-03-12"/>
+    <users id="1002" login="admin1" password="pwd1"  created_date="2017-03-12"/>
+
+    <roles id="1" name="CLIENT"/>
+    <roles id="2" name="EMPLOYEE"/>
+    <roles id="3" name="ADMIN"/>
+
+    <user_roles id_user="1000" id_role="1"/>
+    <user_roles id_user="1001" id_role="2"/>
+    <user_roles id_user="1002" id_role="3"/>
 </dataset>

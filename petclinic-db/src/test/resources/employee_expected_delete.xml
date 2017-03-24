@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users id="1000" login="employee1" password="pwd1" id_role="2" created_date="2017-03-12"/>
+    <roles id="1" name="CLIENT"/>
+    <roles id="2" name="EMPLOYEE"/>
+    <roles id="3" name="ADMIN"/>
 
-    <employees id="1000" first_name="Любовь" last_name="Кошкина" middle_name="Владимировна" id_user="1000" experience="1" />
+    <users id="1001" login="employee2" password="pwd1" created_date="2017-03-12"/>
+
+    <user_roles id_user="1001" id_role="2"/>
+
+    <employees id="1001" first_name="Любовь" last_name="Львова" id_user="1001" experience="1" />
 </dataset>

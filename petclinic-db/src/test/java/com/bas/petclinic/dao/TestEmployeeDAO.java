@@ -21,6 +21,8 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -53,7 +55,9 @@ public class TestEmployeeDAO {
     @Test
     @ExpectedDatabase(value = "classpath:employee_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testCreateEmployee() throws Exception {
-        User user = userDAO.createUser("employee3", "pwd1", new UserRole(2, "EMPLOYEE"), LocalDate.of(2017,3,13));
+        Set<UserRole> roles = new HashSet<>();
+        roles.add(new UserRole(2,"EMPLOYEE"));
+        User user = userDAO.createUser("employee3", "pwd1", roles);
         Employee employee = employeeDAO.createEmployee("Иван", "Собакевич", "Владимирович", user,  1);
         assertEquals(user, employee.getUsername());
     }
@@ -69,7 +73,7 @@ public class TestEmployeeDAO {
     @Test
     @ExpectedDatabase(value = "classpath:employee_expected_delete.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testDeleteEmployee() throws Exception {
-        employeeDAO.deleteEmployeeById(1001L);
+        employeeDAO.deleteEmployeeById(1000L);
     }
 
 }

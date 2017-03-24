@@ -11,10 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
-/**
- * Created by dmitry on 3/10/17.
- */
 @Repository
 public class UserDAOImpl implements UserDAO {
 
@@ -23,12 +21,12 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     @Transactional
-    public User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException {
+    public User createUser(String login, String password, Set<UserRole> roles) throws DataAccessException {
         User user = new User();
         user.setUsername(login);
         user.setPasswordAndSalt(password);
-        user.setRole(role);
-        user.setCreatedAt(createdAt);
+        user.setRoles(roles);
+        user.setCreatedAt(LocalDate.now());
         entityManager.persist(user);
         return user;
     }

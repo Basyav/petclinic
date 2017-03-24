@@ -22,7 +22,9 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Tests for UserDAO
@@ -42,12 +44,15 @@ public class TestUserDAO {
     @Test
     @ExpectedDatabase(value = "classpath:user_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testCreateUser() throws Exception{
-        userDAO.createUser("client2", "pwd1", new UserRole(1,"CLIENT"), LocalDate.of(2017,3,13));
+        Set<UserRole> roles = new HashSet<>();
+        roles.add(new UserRole(1,"CLIENT"));
+        User user = userDAO.createUser("client2", "pwd1", roles);
+        System.out.println(user);
     }
 
     @Test
     @ExpectedDatabase(value = "classpath:user.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void testGetAllUser() throws Exception {
+    public void testGetAllUsers() throws Exception {
         List<User> users = userDAO.getUsers();
         users.forEach(System.out::println);
     }

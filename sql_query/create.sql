@@ -28,10 +28,10 @@ CREATE TABLE "owners" (
 
 
 
-CREATE TABLE "user_roles" (
+CREATE TABLE "roles" (
 	"id" serial NOT NULL,
 	"name" varchar(20) NOT NULL UNIQUE,
-	CONSTRAINT user_roles_pk PRIMARY KEY ("id")
+	CONSTRAINT roles_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
@@ -57,7 +57,7 @@ CREATE TABLE "issues" (
 	"id_employee" bigint NOT NULL,
 	"id_pet" bigint NOT NULL,
 	"description" TEXT NOT NULL,
-	"changed_time" timestamp without time zone NOT NULL,
+	"changed_time" timestamp without time zone NOT NULL DEFAULT now(),
 	"status" smallint NOT NULL,
 	CONSTRAINT issues_pk PRIMARY KEY ("id")
 ) WITH (
@@ -70,13 +70,20 @@ CREATE TABLE "users" (
 	"id" bigserial NOT NULL,
 	"login" varchar(20) NOT NULL UNIQUE,
 	"password" TEXT NOT NULL,
-	"id_role" smallint NOT NULL,
-	"created_date" DATE NOT NULL,
+	"created_date" DATE NOT NULL DEFAULT now(),
 	CONSTRAINT users_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
 
+
+CREATE TABLE "user_roles" (
+	"id_user" serial NOT NULL,
+	"id_role" serial NOT NULL,
+	CONSTRAINT user_roles_pk PRIMARY KEY ("id_user","id_role")
+) WITH (
+OIDS=FALSE
+);
 
 
 ALTER TABLE "pets" ADD CONSTRAINT "pets_fk0" FOREIGN KEY ("id_owner") REFERENCES "owners"("id");
@@ -89,5 +96,6 @@ ALTER TABLE "employees" ADD CONSTRAINT "employees_fk0" FOREIGN KEY ("id_user") R
 ALTER TABLE "issues" ADD CONSTRAINT "issues_fk0" FOREIGN KEY ("id_employee") REFERENCES "employees"("id");
 ALTER TABLE "issues" ADD CONSTRAINT "issues_fk1" FOREIGN KEY ("id_pet") REFERENCES "pets"("id");
 
-ALTER TABLE "users" ADD CONSTRAINT "users_fk0" FOREIGN KEY ("id_role") REFERENCES "user_roles"("id");
+ALTER TABLE "user_roles" ADD CONSTRAINT "users_roles_fk0" FOREIGN KEY ("id_role") REFERENCES "roles"("id");
+ALTER TABLE "user_roles" ADD CONSTRAINT "users_roles_fk1" FOREIGN KEY ("id_user") REFERENCES "users"("id");
 

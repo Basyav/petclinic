@@ -1,12 +1,13 @@
 package com.bas.petclinic.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Role of user
  */
 @Entity
-@Table(name = "user_roles")
+@Table(name = "roles")
 public class UserRole {
 
     @Id
@@ -15,6 +16,9 @@ public class UserRole {
 
     @Column(name = "name", length = 20)
     private String name;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private Set<User> users;
 
     public UserRole() {
     }

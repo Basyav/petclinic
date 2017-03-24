@@ -6,13 +6,14 @@ import org.springframework.dao.DataAccessException;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Created by dmitry on 3/10/17.
+ *
  */
 public interface UserDAO {
 
-    User createUser(String login, String password, UserRole role, LocalDate createdAt) throws DataAccessException;
+    User createUser(String login, String password, Set<UserRole> roles) throws DataAccessException;
     
     User getUserById(Long id);
 

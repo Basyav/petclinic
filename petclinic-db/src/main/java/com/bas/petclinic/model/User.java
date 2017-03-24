@@ -2,6 +2,7 @@ package com.bas.petclinic.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * User for Spring Security
@@ -21,21 +22,15 @@ public class User {
     @Column(name = "password")
     private String passwordAndSalt;
 
-    @ManyToOne
-    @JoinColumn(name = "id_role")
-    private UserRole role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "id_user")},
+            inverseJoinColumns = {@JoinColumn(name = "id_role")})
+    private Set<UserRole> roles;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", columnDefinition = "DEFAULT now()")
     private LocalDate createdAt;
 
     public User() {
-    }
-
-    public User(String username, String passwordAndSalt, UserRole role, LocalDate createdAt) {
-        this.username = username;
-        this.passwordAndSalt = passwordAndSalt;
-        this.role = role;
-        this.createdAt = createdAt;
     }
 
     public Long getId() {
@@ -62,12 +57,12 @@ public class User {
         this.passwordAndSalt = passwordAndSalt;
     }
 
-    public UserRole getRole() {
-        return role;
+    public Set<UserRole> getRoles() {
+        return roles;
     }
 
-    public void setRole(UserRole role) {
-        this.role = role;
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     public LocalDate getCreatedAt() {

@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users login="employee3" password="pwd1" id_role="2" created_date="2017-03-13"/>
-    <users login="employee1" password="pwd1" id_role="2" created_date="2017-03-12"/>
-    <users login="employee2" password="pwd1" id_role="2" created_date="2017-03-12"/>
+    <roles id="1" name="CLIENT"/>
+    <roles id="2" name="EMPLOYEE"/>
+    <roles id="3" name="ADMIN"/>
+
+    <users login="employee3" password="pwd1" />
+    <users login="employee1" password="pwd1" />
+    <users login="employee2" password="pwd1" />
+
+    <user_roles id_role="2"/>
+    <user_roles id_role="2"/>
+    <user_roles id_role="2"/>
 
     <employees first_name="Иван" last_name="Собакевич" middle_name="Владимирович" experience="1" />
     <employees first_name="Любовь" last_name="Кошкина" middle_name="Владимировна"  experience="1" />
