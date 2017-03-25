@@ -5,11 +5,11 @@ package com.bas.petclinic.dto;
  */
 public class PersonDTO {
 
-    protected Long id;
-    protected String firstName;
-    protected String lastName;
-    protected String middleName;
-    protected UserDTO user;
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String middleName;
+    private UserDTO user;
 
     public PersonDTO() {
     }
