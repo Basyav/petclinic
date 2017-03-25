@@ -21,14 +21,14 @@ public abstract class UserMapper {
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "passwordAndSalt", target = "password")
-    @Mapping(expression = "java(mapper.roleToRoleType(user.getRole()))", target = "roleType")
+    @Mapping(expression = "java(mapper.rolesToRoleTypes(user.getRoles()))", target = "roleType")
     @Mapping(source = "createdAt", target = "createdAt")
     public abstract UserDTO toUserDTO(User user);
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "username", target = "username")
     @Mapping(source = "password", target = "passwordAndSalt")
-    @Mapping(expression = "java(mapper.roleTypeToRole(userDTO.getRoleType()))", target = "role")
+    @Mapping(expression = "java(mapper.roleTypesToRoles(userDTO.getRoleTypes()))", target = "role")
     @Mapping(source = "createdAt", target = "createdAt")
     public abstract User toUser(UserDTO userDTO);
 

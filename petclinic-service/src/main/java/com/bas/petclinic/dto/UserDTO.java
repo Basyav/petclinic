@@ -3,6 +3,7 @@ package com.bas.petclinic.dto;
 import com.bas.petclinic.enumeration.UserRoleType;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * Data transfer object from User
@@ -12,7 +13,7 @@ public class UserDTO {
     private Long id;
     private String username;
     private String password;
-    private UserRoleType roleType;
+    private Set<UserRoleType> roleTypes;
     private LocalDate createdAt;
 
     public UserDTO() {
@@ -42,12 +43,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserRoleType getRoleType() {
-        return roleType;
+    public Set<UserRoleType> getRoleTypes() {
+        return roleTypes;
     }
 
-    public void setRoleType(UserRoleType roleType) {
-        this.roleType = roleType;
+    public void setRoleTypes(Set<UserRoleType> roleTypes) {
+        this.roleTypes = roleTypes;
     }
 
     public LocalDate getCreatedAt() {
