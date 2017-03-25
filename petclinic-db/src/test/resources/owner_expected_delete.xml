@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users login="owner2" password="pwd1" id_role="1" created_date="2017-03-12" />
-    <users login="newowner" password="pwd1" id_role="1" created_date="2017-03-12" />
+    <roles id="1" name="CLIENT"/>
+
+    <users login="owner2" password="pwd1" created_date="2017-03-12" />
+    <users login="newowner" password="pwd1" created_date="2017-03-12" />
+
+    <user_roles id_user="1001" id_role="1"/>
+    <user_roles id_user="1002" id_role="1"/>
 
     <owners first_name="Любовь" last_name="Львова" address="ул. Стрелковой девизии" />
 
