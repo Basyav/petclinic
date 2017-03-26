@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 public class IssueDTO {
 
     private Long id;
-    private Employee employee;
-    private Pet pet;
+    private EmployeeDTO employee;
+    private PetDTO pet;
     private String description;
     private LocalDateTime changedAt;
     private IssueStatus status;
@@ -29,19 +29,19 @@ public class IssueDTO {
         this.id = id;
     }
 
-    public Employee getEmployee() {
+    public EmployeeDTO getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
+    public void setEmployee(EmployeeDTO employee) {
         this.employee = employee;
     }
 
-    public Pet getPet() {
+    public PetDTO getPet() {
         return pet;
     }
 
-    public void setPet(Pet pet) {
+    public void setPet(PetDTO pet) {
         this.pet = pet;
     }
 

@@ -5,6 +5,7 @@ import com.bas.petclinic.model.Issue;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,15 +16,23 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class IssueMapper {
 
+    @Autowired
+    protected EmployeeMapper employeeMapper;
+
+    @Autowired
+    protected PetMapper petMapper;
+
     @Mapping(source = "id", target = "id")
-    @Mapping(source = "employee", target = "employee")
-    @Mapping(source = "pet", target = "pet")
+    @Mapping(expression = "java(employeeMapper.toEmployeeDTO(issue.getEmployee()))", target = "employee")
+    @Mapping(expression = "java(petMapper.toPetDTO(issue.getPet()))", target = "pet")
     @Mapping(source = "description", target = "description")
     @Mapping(source = "changedAt", target = "changedAt")
     @Mapping(source = "status", target = "status")
     public abstract IssueDTO toIssueDTO(Issue issue);
 
     @InheritInverseConfiguration
+    @Mapping(expression = "java(employeeMapper.toEmployee(issueDTO.getEmployee()))", target = "employee")
+    @Mapping(expression = "java(petMapper.toPet(issueDTO.getPet()))", target = "pet")
     public abstract Issue toIssue(IssueDTO issueDTO);
 
     public abstract List<IssueDTO> toIssueDTOs(Collection<Issue> issues);

@@ -15,8 +15,8 @@ public class PetDTO {
     private String name;
     private String description;
     private LocalDate createdAt;
-    private Owner owner;
-    private List<Issue> issues;
+    private OwnerDTO owner;
+    private List<IssueDTO> issues;
 
     public PetDTO() {
     }
@@ -53,19 +53,19 @@ public class PetDTO {
         this.createdAt = createdAt;
     }
 
-    public Owner getOwner() {
+    public OwnerDTO getOwner() {
         return owner;
     }
 
-    public void setOwner(Owner owner) {
+    public void setOwner(OwnerDTO owner) {
         this.owner = owner;
     }
 
-    public List<Issue> getIssues() {
+    public List<IssueDTO> getIssues() {
         return issues;
     }
 
-    public void setIssues(List<Issue> issues) {
+    public void setIssues(List<IssueDTO> issues) {
         this.issues = issues;
     }
 

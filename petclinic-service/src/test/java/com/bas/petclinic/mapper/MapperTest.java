@@ -1,7 +1,11 @@
 package com.bas.petclinic.mapper;
 
 import com.bas.petclinic.config.ServiceConfig;
+import com.bas.petclinic.dto.OwnerDTO;
+import com.bas.petclinic.dto.PetDTO;
 import com.bas.petclinic.dto.UserDTO;
+import com.bas.petclinic.model.Owner;
+import com.bas.petclinic.model.Pet;
 import com.bas.petclinic.model.User;
 import com.bas.petclinic.model.UserRole;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
@@ -30,16 +34,23 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class, DbUnitTestExecutionListener.class})
-@DatabaseSetup("classpath:roles.xml")
+        DirtiesContextTestExecutionListener.class/*, DbUnitTestExecutionListener.class*/})
+//@DatabaseSetup("classpath:roles.xml")
 public class MapperTest {
 
     private User user;
+    private Owner owner;
 
     private static final Logger logger = LoggerFactory.getLogger(MapperTest.class);
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    OwnerMapper ownerMapper;
+
+    @Autowired
+    PetMapper petMapper;
 
     @Before
     public void setUp() throws  Exception {
@@ -51,6 +62,13 @@ public class MapperTest {
         user.setRoles(roles);
         user.setPasswordAndSalt("pwd");
         user.setCreatedAt(LocalDate.of(2017, 3, 17));
+        owner = new Owner();
+        owner.setId(1L);
+        owner.setUsername(user);
+        owner.setFirstName("Любовь");
+        owner.setLastName("Кошкина");
+        owner.setMiddleName("Владимировна");
+        owner.setAddress("ул. Стрелковой девизии");
     }
 
     @Test
@@ -63,5 +81,25 @@ public class MapperTest {
         logger.info(actualUser.getRoles().toString());
     }
 
+    @Test
+    public void testOwnerMapper() throws Exception {
+        OwnerDTO ownerDTO = ownerMapper.toOwnerDTO(owner);
+        logger.info(ownerDTO.getUser().toString());
+        Owner actualOwner = ownerMapper.toOwner(ownerDTO);
+        logger.info(actualOwner.toString());
+    }
 
+    @Test
+    public void testPetMapper() throws Exception {
+        Pet pet = new Pet();
+        pet.setId(1L);
+        pet.setDescription("Собака");
+        pet.setName("Шарик");
+        pet.setCreatedAt(LocalDate.of(2017, 3, 17));
+        pet.setOwner(owner);
+        PetDTO petDTO = petMapper.toPetDTO(pet);
+        logger.info(petDTO.getOwner().toString());
+        Pet actualPet = petMapper.toPet(petDTO);
+        logger.info(actualPet.getOwner().toString());
+    }
 }
