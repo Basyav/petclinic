@@ -22,8 +22,10 @@
         <dbunit.version>2.5.2</dbunit.version>
         <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
         <embed.mongo.version>1.50.5</embed.mongo.version>
+        <embedded-elasticsearch.version>2.1.0</embedded-elasticsearch.version>
         <hibernate.version>5.2.2.Final</hibernate.version>
         <spring-data-mongodb.version>1.9.6.RELEASE</spring-data-mongodb.version>
+        <spring-data-elasticsearch.version>2.0.4.RELEASE</spring-data-elasticsearch.version>
         <cglib.version>2.2.2</cglib.version>
         <mapstruct.version>1.0.0.Final</mapstruct.version>
         <servlet.version>3.1.0</servlet.version>
@@ -104,11 +106,15 @@
                 <version>${spring-data-mongodb.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-elasticsearch</artifactId>
+                <version>${spring-data-elasticsearch.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>${cglib.version}</version>
             </dependency>
-
 
             <!-- Spring ORM support -->
             <dependency>
@@ -177,6 +183,12 @@
                 <groupId>de.flapdoodle.embed</groupId>
                 <artifactId>de.flapdoodle.embed.mongo</artifactId>
                 <version>${embed.mongo.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>pl.allegro.tech</groupId>
+                <artifactId>embedded-elasticsearch</artifactId>
+                <version>${embedded-elasticsearch.version}</version>
                 <scope>test</scope>
             </dependency>
 

@@ -21,6 +21,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Spring JPA config
+ */
 @Configuration
 @ComponentScan(basePackages = "com.bas.petclinic.dao")
 @PropertySource("classpath:properties/connection.properties")
