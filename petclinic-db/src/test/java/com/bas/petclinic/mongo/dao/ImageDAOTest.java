@@ -1,6 +1,6 @@
-package com.bas.petclinic.service;
+package com.bas.petclinic.mongo.dao;
 
-import com.bas.petclinic.config.ServiceConfig;
+import com.bas.petclinic.mongo.config.MongoDBConfig;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.gridfs.GridFSDBFile;
@@ -33,10 +33,10 @@ import static org.junit.Assert.*;
  * Tests for ImageService
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ServiceConfig.class)
+@ContextConfiguration(classes = MongoDBConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class})
-public class ImageServiceTest {
+public class ImageDAOTest {
 
     private MongodExecutable mongodExec;
     private MongoClient mongo;
@@ -48,9 +48,9 @@ public class ImageServiceTest {
     private final static String DATABASE_NAME = "petclinic";
 
     @Autowired
-    ImageService imageService;
+    ImageDAO imageDAO;
 
-   /* @Before
+    @Before
     public void setUp() throws Exception {
         MongodStarter starter = MongodStarter.getDefaultInstance();
         String bindIp = "localhost";
@@ -65,7 +65,7 @@ public class ImageServiceTest {
         mongo = new MongoClient(bindIp, port);
         db = mongo.getDatabase(DATABASE_NAME);
         is = new FileInputStream("src/test/resources/test.jpg");
-    }*/
+    }
 
     @After
     public void tearDown() throws Exception {
@@ -76,30 +76,30 @@ public class ImageServiceTest {
 
     @Test
     public void testCreateImage() throws Exception {
-        inputFile = imageService.saveImage(is, "test.jpg", "image/jpg", ID);
+        inputFile = imageDAO.createImage(is, "test.jpg", "image/jpg", ID);
         assertNotNull(inputFile.getId().toString());
         System.out.println(db.getCollection("fs.files").find().first().toJson());
     }
 
     @Test
     public void testGetImageByMetadataId() throws Exception {
-        inputFile = imageService.saveImage(is, "test.jpg", "image/jpg", ID);
-        GridFSDBFile outputFile = imageService.getImage(ID);
+        inputFile = imageDAO.createImage(is, "test.jpg", "image/jpg", ID);
+        GridFSDBFile outputFile = imageDAO.getImageByMetadataId(ID);
         assertEquals(ID, outputFile.getMetaData().get("id"));
     }
 
     @Test
     public void testDeleteImageByMetadataId() throws Exception {
-        inputFile = imageService.saveImage(is, "test.jpg", "image/jpg", ID);
-        imageService.deleteImage(ID);
+        inputFile = imageDAO.createImage(is, "test.jpg", "image/jpg", ID);
+        imageDAO.deleteImageByMetadataId(ID);
         assertNull(db.getCollection("fs.files").find().first());
     }
 
     @Test
     public void testUpdateImage() throws Exception {
-        GridFSFile oldFile = imageService.saveImage(is, "test.jpg", "image/jpg", ID);
+        GridFSFile oldFile = imageDAO.createImage(is, "test.jpg", "image/jpg", ID);
         InputStream isNew = new FileInputStream("src/test/resources/test_update.jpg");
-        GridFSFile newFile = imageService.updateImage(isNew, "test_update.jpg", "image/jpg", ID);
+        GridFSFile newFile = imageDAO.updateImage(isNew, "test_update.jpg", "image/jpg", ID);
         assertNotEquals(oldFile.getFilename(), newFile.getFilename());
         System.out.println(newFile);
     }
