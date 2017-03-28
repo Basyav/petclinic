@@ -1,0 +1,9 @@
+{
+  "owners": {
+    "properties": {
+      "FIO": {
+        "type": "string"
+      }
+    }
+  }
+}

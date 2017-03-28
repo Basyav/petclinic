@@ -1,6 +1,6 @@
-package com.bas.petclinic.dao.impl;
+package com.bas.petclinic.elasticsearch.dao;
 
-import com.bas.petclinic.model.ESOwner;
+import com.bas.petclinic.elasticsearch.model.ESOwner;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface ESOwnerDAO extends ElasticsearchRepository<ESOwner, String> {
 
-    List<ESOwner> getByName(String name);
+    List<ESOwner> findByFio(String name);
 }

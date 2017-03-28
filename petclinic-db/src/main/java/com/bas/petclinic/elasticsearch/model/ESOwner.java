@@ -1,4 +1,4 @@
-package com.bas.petclinic.model;
+package com.bas.petclinic.elasticsearch.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -6,15 +6,14 @@ import org.springframework.data.elasticsearch.annotations.Document;
 /**
  *
  */
-@Document(indexName = "petclinic", type = "pets")
-public class ESPet {
+@Document(indexName = "petclinic", type = "owners")
+public class ESOwner {
 
     @Id
     private String id;
-    private String name;
-    private String owner;
+    private String fio;
 
-    public ESPet() {
+    public ESOwner() {
     }
 
     public String getId() {
@@ -25,28 +24,20 @@ public class ESPet {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFio() {
+        return fio;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setFio(String fio) {
+        this.fio = fio;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ESPet esPet = (ESPet) o;
-        return id != null ? id.equals(esPet.id) : esPet.id == null;
+        ESOwner esOwner = (ESOwner) o;
+        return id != null ? id.equals(esOwner.id) : esOwner.id == null;
 
     }
 
@@ -57,10 +48,9 @@ public class ESPet {
 
     @Override
     public String toString() {
-        return "ESPet{" +
+        return "ESOwner{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", owner='" + owner + '\'' +
+                ", fio='" + fio + '\'' +
                 '}';
     }
 }

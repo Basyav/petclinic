@@ -1,6 +1,6 @@
-package com.bas.petclinic.dao;
+package com.bas.petclinic.elasticsearch.dao;
 
-import com.bas.petclinic.model.ESPet;
+import com.bas.petclinic.elasticsearch.model.ESPet;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.bas.petclinic.config;
+package com.bas.petclinic.elasticsearch.config;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
@@ -18,7 +18,7 @@ import java.net.InetAddress;
  * Spring ElasticSearch config
  */
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.bas.petclinic.dao")
+@EnableElasticsearchRepositories(basePackages = "com.bas.petclinic.elasticsearch.dao")
 @PropertySource("classpath:properties/connection.properties")
 public class ESConfig {
 
