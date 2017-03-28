@@ -1,9 +1,11 @@
 package com.bas.petclinic.mapper;
 
 import com.bas.petclinic.config.ServiceConfig;
+import com.bas.petclinic.dto.ESPetDTO;
 import com.bas.petclinic.dto.OwnerDTO;
 import com.bas.petclinic.dto.PetDTO;
 import com.bas.petclinic.dto.UserDTO;
+import com.bas.petclinic.elasticsearch.model.ESPet;
 import com.bas.petclinic.model.Owner;
 import com.bas.petclinic.model.Pet;
 import com.bas.petclinic.model.User;
@@ -27,6 +29,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  *
@@ -51,6 +55,9 @@ public class MapperTest {
 
     @Autowired
     PetMapper petMapper;
+
+    @Autowired
+    ESPetMapper esPetMapper;
 
     @Before
     public void setUp() throws  Exception {
@@ -101,5 +108,18 @@ public class MapperTest {
         logger.info(petDTO.getOwner().toString());
         Pet actualPet = petMapper.toPet(petDTO);
         logger.info(actualPet.getOwner().toString());
+    }
+
+    @Test
+    public void testESPetMapper() throws Exception {
+        ESPet esPet = new ESPet();
+        esPet.setId("1");
+        esPet.setName("Шарик");
+        esPet.setOwner("Любовь Кошкина");
+        ESPetDTO esPetDTO = esPetMapper.toESPetDTO(esPet);
+        logger.info(esPetDTO.toString());
+        assertThat(esPetDTO.getId(), is(1L));
+        ESPet actualEsPet = esPetMapper.toESPet(esPetDTO);
+        assertThat(actualEsPet.getId(), is("1"));
     }
 }
