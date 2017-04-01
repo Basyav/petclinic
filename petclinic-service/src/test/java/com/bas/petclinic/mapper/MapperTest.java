@@ -38,8 +38,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ServiceConfig.class)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class/*, DbUnitTestExecutionListener.class*/})
-//@DatabaseSetup("classpath:roles.xml")
+        DirtiesContextTestExecutionListener.class})
 public class MapperTest {
 
     private User user;

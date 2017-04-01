@@ -9,8 +9,6 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +17,12 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 /**
  * Tests for UserDAO
@@ -55,6 +53,13 @@ public class TestUserDAO {
     public void testGetAllUsers() throws Exception {
         List<User> users = userDAO.getUsers();
         users.forEach(System.out::println);
+    }
+
+    @Test
+    @ExpectedDatabase(value = "classpath:user.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void testGetUserByLogin() throws Exception {
+        User user = userDAO.getUserByLogin("employee1");
+        assertEquals("employee1", user.getUsername());
     }
 
     @Test
