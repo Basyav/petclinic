@@ -22,7 +22,7 @@ public class User {
     @Column(name = "password")
     private String passwordAndSalt;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = {@JoinColumn(name = "id_user")},
             inverseJoinColumns = {@JoinColumn(name = "id_role")})
     private Set<UserRole> roles;
