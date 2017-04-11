@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * Created by dmitry on 3/10/17.
@@ -41,6 +44,22 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public Employee getEmployeeById(Long id) {
         return  entityManager.find(Employee.class, id);
+    }
+
+    @Override
+    public Employee getEmployeeByUserId(Long id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery criteria = builder.createQuery();
+        Root<Employee> i = criteria.from(Employee.class);
+        Employee employee = (Employee) entityManager.createQuery(
+                criteria.select(i).where(
+                        builder.equal(
+                                i.get("username").get("id"),
+                                builder.parameter(Long.class, "userId")
+                        )
+                )
+        ).setParameter("userId", id).getSingleResult();
+        return employee;
     }
 
     @Override

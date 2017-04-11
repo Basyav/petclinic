@@ -1,7 +1,9 @@
 package com.bas.petclinic.config;
 
+import com.bas.petclinic.security.PetclinicAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = "com.bas.petclinic.security")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -25,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
+
+    @Autowired
+    PetclinicAuthenticationSuccessHandler successHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,8 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/owner**").access("hasRole('ROLE_CLIENT')")
                 .antMatchers("/employee**").access("hasRole('ROLE_EMPLOYEE')")
+                .antMatchers("/admin**").access("hasRole('ROLE_ADMIN')")
                 .and()
-                .formLogin().loginPage("/login")
+                .formLogin().loginPage("/login").successHandler(successHandler)
                 .usernameParameter("username")
                 .passwordParameter("password");
     }

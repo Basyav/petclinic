@@ -33,8 +33,8 @@ public class TestUserService {
     @Test
     public void testSaveUser() throws Exception {
         Set<UserRoleType> roles = new HashSet<>();
-        roles.add(UserRoleType.СLIENT);
-        UserDTO user =  userService.saveUser("owner", "owner123", roles);
+        roles.add(UserRoleType.ADMIN);
+        UserDTO user =  userService.saveUser("admin", "admin123", roles);
         assertNotNull(user.getId());
     }
 }

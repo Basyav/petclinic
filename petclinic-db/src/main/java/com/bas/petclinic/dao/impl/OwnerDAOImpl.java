@@ -9,6 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * Created by dmitry on 3/10/17.
@@ -41,6 +44,22 @@ public class OwnerDAOImpl implements OwnerDAO {
     @Override
     public Owner getOwnerById(Long id) {
         return entityManager.find(Owner.class, id);
+    }
+
+    @Override
+    public Owner getOwnerByUserId(Long id) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery criteria = builder.createQuery();
+        Root<Owner> i = criteria.from(Owner.class);
+        Owner owner = (Owner) entityManager.createQuery(
+                criteria.select(i).where(
+                        builder.equal(
+                                i.get("username").get("id"),
+                                builder.parameter(Long.class, "userId")
+                        )
+                )
+        ).setParameter("userId", id).getSingleResult();
+        return owner;
     }
 
     @Override

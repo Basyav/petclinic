@@ -20,4 +20,16 @@ public class MainController {
         return "auth.html";
     }
 
+    @RequestMapping(value = "/owner/{id}", method = RequestMethod.GET)
+    public String owner() {
+        return "/owner.html";
+    }
+
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
+    public String employee() {
+        return "/employee.html";
+    }
+
+
+
 }

@@ -46,6 +46,12 @@ public class TestOwnerDAO {
     }
 
     @Test
+    public void testGetOwnerByUserId() throws Exception {
+        Owner owner = ownerDAO.getOwnerByUserId(1000L);
+        assertEquals(new Long(1000), owner.getId());
+    }
+
+    @Test
     @ExpectedDatabase(value = "classpath:owner_expected_create.xml", assertionMode = DatabaseAssertionMode.NON_STRICT)
     public void testCreateOwner() throws Exception {
         User user = userDAO.getUserById(1002L);

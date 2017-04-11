@@ -7,13 +7,14 @@ import org.springframework.dao.DataAccessException;
 /**
  * DAO for bean Owner
  */
-
 public interface OwnerDAO {
 
     Owner createOwner(String firstName, String lastName, String middleName,
                       User username, String address) throws DataAccessException;
 
     Owner getOwnerById(Long id);
+
+    Owner getOwnerByUserId(Long id);
 
     Owner updateOwner(Owner owner) throws DataAccessException;
 

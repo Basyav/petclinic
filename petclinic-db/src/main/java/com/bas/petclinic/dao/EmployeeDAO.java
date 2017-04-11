@@ -15,6 +15,8 @@ public interface EmployeeDAO {
 
     Employee getEmployeeById(Long id);
 
+    Employee getEmployeeByUserId(Long id);
+
     Employee updateEmployee(Employee employee) throws DataAccessException;
 
     void deleteEmployeeById(Long id) throws DataAccessException;

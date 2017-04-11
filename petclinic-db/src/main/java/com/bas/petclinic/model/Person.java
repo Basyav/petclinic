@@ -22,8 +22,8 @@ public class Person {
     @Column(name = "middle_name", length = 100)
     private String middleName;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "id_user")
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "id_user", unique = true)
     private User username;
 
     public Person() {
