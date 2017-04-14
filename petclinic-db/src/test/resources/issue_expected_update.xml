@@ -16,4 +16,6 @@
     <pets id="1000" name="Шарик" description="Собака" reg_date="2017-03-12" id_owner="1000" />
 
     <issues id="1000" id_employee="1000" id_pet="1000" description="О собаках" changed_time="2017-03-12 14:00:00" status="1"/>
+    <issues id="1001" id_employee="1000" id_pet="1000" description="О собаках" changed_time="2017-03-12 12:05:00" status="0" />
+    <issues id="1002" id_employee="1000" id_pet="1000" description="О собаках" changed_time="2017-03-12 15:00:00" status="0" />
 </dataset>

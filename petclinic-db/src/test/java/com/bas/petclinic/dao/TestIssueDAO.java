@@ -11,9 +11,10 @@ import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.DatabaseTearDown;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -22,6 +23,11 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.is;
 
 /**
  * Tests for IssueDAO
@@ -35,6 +41,8 @@ import java.time.LocalDateTime;
 @DatabaseTearDown(value = "classpath:issue.xml", type = DatabaseOperation.DELETE_ALL)
 public class TestIssueDAO {
 
+    private final static Logger logger = LoggerFactory.getLogger(TestIssueDAO.class);
+
     @Autowired
     private IssueDAO issueDAO;
 
@@ -47,8 +55,15 @@ public class TestIssueDAO {
     @Test
     public void testGetIssue() throws Exception {
         Issue issue = issueDAO.getIssueById(1000L);
-        Assert.assertEquals(new Long(1000), issue.getId());
+        assertEquals(new Long(1000), issue.getId());
         System.out.println(issue);
+    }
+
+    @Test
+    public void testGetAllIssuesByOwnerId() throws Exception {
+        List<Issue> issues = issueDAO.getAllIssuesByOwnerId(1000L);
+        assertThat(issues.size(), is(3));
+        assertThat(issues.get(0).getChangedAt(), is(LocalDateTime.of(2017, 3, 12, 15, 0, 0)));
     }
 
     @Test

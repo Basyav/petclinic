@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
     <roles id="1" name="CLIENT"/>
+    <roles id="2" name="EMPLOYEE"/>
 
     <users id="1000" login="owner1" password="pwd1" created_date="2017-03-12" />
+    <users id="1001" login="employee1" password="pwd2" created_date="2017-03-12"/>
 
     <user_roles id_user="1000" id_role="1"/>
+    <user_roles id_user="1001" id_role="2"/>
 
     <owners id="1000" first_name="Любовь" last_name="Кошкина" middle_name="Владимировна" address="ул. Стрелковой девизии" id_user="1000" />
 
+    <employees id="1000" first_name="Любовь" last_name="Львова" id_user="1001" experience="1" />
+
     <pets id="1000" name="Шарик" description="Собака" reg_date="2017-03-12" id_owner="1000" />
+    <pets id="1001" name="Шарик" description="Собака" reg_date="2017-03-12" id_owner="1000" />
+
+    <issues id="1000" id_employee="1000" id_pet="1000" description="О собаках" changed_time="2017-03-12 12:00:00" status="0" />
+    <issues id="1001" id_employee="1000" id_pet="1000" description="О собаках" changed_time="2017-03-12 12:05:00" status="2" />
+    <issues id="1002" id_employee="1000" id_pet="1001" description="О собаках" changed_time="2017-03-12 11:05:00" status="0" />
+    <issues id="1003" id_employee="1000" id_pet="1001" description="О собаках" changed_time="2017-03-12 12:00:00" status="2" />
 </dataset>

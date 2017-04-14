@@ -8,29 +8,41 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
- * Created by dmitry on 3/10/17.
+ *
  */
 @Repository
+@Transactional
 public class IssueDAOImpl implements IssueDAO {
+
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    @Transactional
     public Issue createIssue(Issue issue) throws DataAccessException{
         entityManager.persist(issue);
         return issue;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Issue getIssueById(Long id) {
         return entityManager.find(Issue.class, id);
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
+    public List<Issue> getAllIssuesByOwnerId(Long id) {
+        return entityManager.createQuery("SELECT i FROM Issue i " +
+                "LEFT JOIN fetch i.pet " +
+                "LEFT JOIN fetch i.employee " +
+                "WHERE i.pet.owner.id = :id " +
+                "ORDER BY i.changedAt DESC").setParameter("id", id).getResultList();
+    }
+
+    @Override
     public Issue updateIssue(Issue issue) throws DataAccessException {
         entityManager.merge(issue);
         return issue;
